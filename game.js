@@ -56,15 +56,20 @@ $(document).ready(function() {
     var startQuiz = function(){
         currentQuestion = 0;
         $('#quizQuestions').html(quizQuestions[currentQuestion].question);
+        $('#quizOptions').append(quizQuestions[currentQuestion].options);
     }
 
     startQuiz();
 
 
     var nextQuestion = function(){
-        $("#nextButton").on("click", function () {
-            currentQuestion++
+        $("#nextButton").on("click", function(){
+            currentQuestion++;
             $('#quizQuestions').html(quizQuestions[currentQuestion].question);
+            $('#quizOptions').empty();
+            $('#quizOptions').append(quizQuestions[currentQuestion].options);
+
+            return currentQuestion
         });
 
     }
