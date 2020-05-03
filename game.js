@@ -1,6 +1,6 @@
 $(document).ready(function() {
     
-    var quizLayout = [
+    var quizQuestions = [
         {
             question: 'Which of the following is NOT a fundamental programming language?',
             options: ['javaScript', 'functions', 'CSS'],
@@ -52,4 +52,23 @@ $(document).ready(function() {
             answer: 'loop',
         },
     ];
+
+    var startQuiz = function(){
+        currentQuestion = 0;
+        $('#quizQuestions').html(quizQuestions[currentQuestion].question);
+    }
+
+    startQuiz();
+
+
+    var nextQuestion = function(){
+        $("#nextButton").on("click", function () {
+            currentQuestion++
+            $('#quizQuestions').html(quizQuestions[currentQuestion].question);
+        });
+
+    }
+
+    nextQuestion();
+
 });
