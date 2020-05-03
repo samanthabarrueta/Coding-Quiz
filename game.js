@@ -53,12 +53,18 @@ $(document).ready(function() {
         },
     ];
 
+    var quizOptions = function(){
+        for (var i = 0; i < quizQuestions[currentQuestion].options.length; i++) {
+            $('#quizOptions').append('<ul style="list-style-type:none;"><li><button class="btn btn-dark" id="right" name="right">' + quizQuestions[currentQuestion].options[i] + '</button></li></ul>');
+        }
+    }
+
     var startQuiz = function(){
         currentQuestion = 0;
         $('#quizQuestions').html(quizQuestions[currentQuestion].question);
-        $('#quizOptions').append(quizQuestions[currentQuestion].options);
+        quizOptions();
     }
-
+     
     startQuiz();
 
 
@@ -67,13 +73,12 @@ $(document).ready(function() {
             currentQuestion++;
             $('#quizQuestions').html(quizQuestions[currentQuestion].question);
             $('#quizOptions').empty();
-            $('#quizOptions').append(quizQuestions[currentQuestion].options);
-
-            return currentQuestion
+            quizOptions();
         });
-
     }
 
     nextQuestion();
+
+ 
 
 });
