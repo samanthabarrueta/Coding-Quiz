@@ -56,7 +56,6 @@ $(document).ready(function() {
     var quizOptions = function(){
         for (var i = 0; i < quizQuestions[currentQuestion].options.length; i++) {
             $('#quizOptions').append(`<ul style="list-style-type:none;""><li><button class="btn btn-dark" value="${quizQuestions[currentQuestion].options[i]}" id="option"> ${quizQuestions[currentQuestion].options[i]} </button></li></ul>`);
-            console.log(quizQuestions[currentQuestion].options[i]); 
         }
     }
 
@@ -72,7 +71,7 @@ $(document).ready(function() {
 
 
     var nextQuestion = function(){
-        $('#nextButton').on('click', function(){
+        $(document).on('click','#option',function(){
             currentQuestion++;
             $('#quizQuestions').html(quizQuestions[currentQuestion].question);
             $('#quizOptions').empty();
@@ -80,18 +79,19 @@ $(document).ready(function() {
         });
     }
 
-    nextQuestion();
 
     var checkAnswer = function(){
         $(document).on('click','#option',function(){
         var userChoice = $(this).val();
-            if (userChoice === (quizQuestions[currentQuestion].answer)){
-                alert('correct');
-            }
-
+        if (userChoice === (quizQuestions[currentQuestion].answer)){
+            alert('correct');
+        } else {
+            alert('incorrect');
+        }
         });
     }
 
-    checkAnswer();
+   checkAnswer();
+   nextQuestion();
 
 });
