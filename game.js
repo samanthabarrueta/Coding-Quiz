@@ -85,6 +85,7 @@ $(document).ready(function() {
     var startQuiz = function(){
         $('#startButton').on('click', function(){
             currentQuestion = 0;
+            score = 0;
             $('#quizQuestions').html(quizQuestions[currentQuestion].question);
             quizOptions();
         });
@@ -107,9 +108,10 @@ $(document).ready(function() {
         $(document).on('click','#option',function(){
         var userChoice = $(this).val();
         if (userChoice === (quizQuestions[currentQuestion].answer)){
-            alert('correct');
+            score++
+            $('#scoreTracker').html('correct: ' + score);
         } else {
-            alert('incorrect');
+            $('#scoreTracker').html('incorrect: ' + score);
         }
         });
     }
