@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+    $('#addInitials').hide();
     
     var quizQuestions = [
         {
@@ -90,6 +92,36 @@ $(document).ready(function() {
             quizOptions();
         });
     }
+
+    var addInitials= function(){
+        var leaderBoard = [];
+        var localInitials = localStorage.getItem('initials', initials)
+        if (localInitials !== null) {
+            leaderBoard = localInitials.split(',')
+            for (var localInitials of leaderBoard) {
+            $('#leaderBoard').append(localInitials + 'score: ' + score);
+            }
+        }
+        var initials = $('#initials').val();
+        leaderBoard.push(initials);
+        $('#leaderBoard').append(`
+            <div class = "input-group mb-6">
+            </div>
+            <input type="text" placeholder="add your initials" value='${initials} Score:${score}' aria-describedby='basic-addon1' aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+            </div>
+        `);
+        $('#addInitials').hide();
+        localStorage.setItem('initials', initials);
+        
+    }
+
+    var leaderBoard = function(){
+        $('#addBtn').on('click', function(){
+            $('#addInitials').show();
+            addInitials();
+
+        });
+    }
      
     
     var nextQuestion = function(){
@@ -100,10 +132,12 @@ $(document).ready(function() {
                 $('#quizOptions').empty();
                 quizOptions();
             } else {
-                $('#quizQuestions').html('You completed the quiz. You scored ' + score + ' out of 10.');
+                $('#quizQuestions').html('You completed the quiz. <br> You scored ' + score + ' out of 10. <br> Add your initials to the scoreboard<br><br>');
                 $('#quizOptions').empty();
                 $('#scoreTracker').empty();
-                $('#startButton').hide()
+                $('#startButton').hide();
+                $('#addInitials').show();
+                leaderBoard();
             }
         });
     }
@@ -114,6 +148,7 @@ $(document).ready(function() {
         var userChoice = $(this).val();
         if (userChoice === (quizQuestions[currentQuestion].answer)){
             score++
+            localStorage.setItem('score', score)
             $('#scoreTracker').html('Correct!');
         } else {
             $('#scoreTracker').html('Incorrect!');
@@ -121,10 +156,12 @@ $(document).ready(function() {
         });
     }
 
-   
+
+
    startQuiz();
    checkAnswer();
    nextQuestion();
+   
 
 
 
