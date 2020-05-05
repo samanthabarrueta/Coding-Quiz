@@ -91,15 +91,20 @@ $(document).ready(function() {
         });
     }
      
-    startQuiz();
-
-
+    
     var nextQuestion = function(){
         $(document).on('click','#option',function(){
-            currentQuestion++;
-            $('#quizQuestions').html(quizQuestions[currentQuestion].question);
-            $('#quizOptions').empty();
-            quizOptions();
+            if (currentQuestion < 9){
+                currentQuestion++;
+                $('#quizQuestions').html(quizQuestions[currentQuestion].question);
+                $('#quizOptions').empty();
+                quizOptions();
+            } else {
+                $('#quizQuestions').html('You completed the quiz. You scored ' + score + ' out of 10.');
+                $('#quizOptions').empty();
+                $('#scoreTracker').empty();
+                $('#startButton').hide()
+            }
         });
     }
 
@@ -109,15 +114,19 @@ $(document).ready(function() {
         var userChoice = $(this).val();
         if (userChoice === (quizQuestions[currentQuestion].answer)){
             score++
-            $('#scoreTracker').html('correct: ' + score);
+            $('#scoreTracker').html('Correct!');
         } else {
-            $('#scoreTracker').html('incorrect: ' + score);
+            $('#scoreTracker').html('Incorrect!');
         }
         });
     }
 
+   
+   startQuiz();
    checkAnswer();
    nextQuestion();
+
+
 
 
 });
